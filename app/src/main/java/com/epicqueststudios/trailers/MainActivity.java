@@ -35,7 +35,6 @@ import okhttp3.ResponseBody;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String apiKey;
-    private static final String PREFS_API_KEY = "app_id";
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -45,22 +44,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        apiKey = PreferenceManager.getDefaultSharedPreferences(this).getString(PREFS_API_KEY, "");
+        apiKey = getString(R.string.app_id);;
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              /*  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
+        fab.setOnClickListener(view -> {
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
 
-            }
         });
-        Log.d("test01" "api key: "+apiKey);
         downloadTrailers("https://api.themoviedb.org/3/search/movie?api_key="+apiKey+"&query=Matter");
     }
 
